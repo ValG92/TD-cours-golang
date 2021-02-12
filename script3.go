@@ -1,14 +1,19 @@
 package main
 
 import (
-	"fmt"
+    "fmt" 
+	"sync"
 )
 
 func main() {
-	go maFonction()
-	fmt.Println("Fin du programme")
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go maFonction(&wg)
+	wg.Wait()
+    fmt.Println("Fin du programme")
 }
 
-func maFonction() {
-	fmt.Println("j'ai fini !")
-}
+func maFonction( wg *sync.WaitGroup ) {
+    fmt.Println("j'ai fini !")
+	wg.Done()
+} 
